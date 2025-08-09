@@ -1,209 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blaze — Pocket Spark</title>
-  <meta name="theme-color" content="#0e0e12">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon-192.png">
-  <style>
-    :root{--bg:#0e0e12;--card:#15161c;--ink:#e8e8ef;--muted:#a5a8b6;--accent:#8a7cff;--accent-2:#ff6f9c;--ring: rgba(138,124,255,.45);--radius:16px;--shadow: 0 10px 30px rgba(0,0,0,.35)}
-    @media (prefers-color-scheme: light){:root{--bg:#f7f7fb;--card:#ffffff;--ink:#1a1a22;--muted:#44475a;--ring: rgba(138,124,255,.25);--shadow: 0 10px 30px rgba(0,0,0,.10)}}
-    *{box-sizing:border-box}html,body{height:100%}
-    body{margin:0;font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 90% -10%, rgba(138,124,255,.12), transparent),
-                  radial-gradient(900px 500px at -10% 110%, rgba(255,111,156,.10), transparent),var(--bg);
-      color:var(--ink);display:flex;align-items:center;justify-content:center;padding:20px}
-    .app{width:min(820px, 100%);display:grid;gap:14px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 8px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:38px;height:38px;border-radius:12px;background: linear-gradient(135deg, var(--accent), var(--accent-2));display:grid;place-items:center;box-shadow: var(--shadow)}
-    .logo svg{width:22px;height:22px;fill:white;opacity:.95}
-    .title{font-weight:800;letter-spacing:.4px}.sub{color:var(--muted);font-size:.9rem}
-    .grid{display:grid;gap:14px;grid-template-columns: repeat(12, 1fr)}
-    .card{grid-column: span 12;background:linear-gradient(180deg, rgba(255,255,255,.02), transparent), var(--card);border:1px solid rgba(255,255,255,.06);border-radius: var(--radius);box-shadow: var(--shadow);padding:18px;position:relative;overflow:hidden;isolation:isolate}
-    .card h3{margin:0 0 8px 0;font-size:1.05rem;letter-spacing:.3px}
-    .card p{margin:6px 0 0;color:var(--muted);line-height:1.5}
-    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-    button{appearance:none;border:0;cursor:pointer;padding:12px 14px;border-radius:14px;background:#1c1d25;color:var(--ink);border:1px solid rgba(255,255,255,.08);box-shadow: var(--shadow);font-weight:700;letter-spacing:.2px;transition: transform .08s ease, box-shadow .2s ease}
-    button:hover{transform: translateY(-1px)}button:active{transform: translateY(0)}
-    .accent{background: linear-gradient(135deg, var(--accent), var(--accent-2));border:0}.ghost{background:transparent;border:1px dashed rgba(255,255,255,.15)}
-    .pill{border-radius:999px;padding:10px 14px;font-weight:700}.big{font-size:1.04rem;padding:14px 16px}
-    .muted{color:var(--muted)}.badge{font-size:.72rem;letter-spacing:.25px;padding:6px 9px;border-radius:999px;background:rgba(138,124,255,.18);color:#c9c3ff;border:1px solid rgba(138,124,255,.35)}
-    .out{position:absolute;inset:auto -40px -40px auto;width:180px;height:180px;background: radial-gradient(closest-side, var(--ring), transparent);filter: blur(10px);opacity:.9;pointer-events:none;z-index:-1;transform: rotate(12deg)}
-    .hidden{display:none}.center{display:grid;place-items:center}.tiny{font-size:.8rem;color:var(--muted)}.hr{height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);margin:12px -18px}.small{font-size:.9rem}
-    input[type="text"]{width:100%;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.2);color:var(--ink);border:1px solid rgba(255,255,255,.08);outline:none}
-    .toast{position: fixed;left:50%;transform: translateX(-50%);bottom:24px;background:rgba(22,22,30,.9);color:var(--ink);border:1px solid rgba(255,255,255,.1);padding:12px 16px;border-radius:12px;box-shadow: var(--shadow);opacity:0;pointer-events:none;transition: opacity .2s ease}
-    .toast.show{opacity:1}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Spark — DEBUG</title>
+<style>
+  body{margin:0;font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial;background:#0e0e12;color:#e8e8ef}
+  .bar{padding:10px 14px;font-weight:700}
+  .red{background:#3b1d1f} .green{background:#14321f}
+  .muted{opacity:.8}
+  .wrap{padding:16px}
+  pre{white-space:pre-wrap;background:#15161c;border:1px solid rgba(255,255,255,.12);padding:12px;border-radius:10px}
+  button{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#1c1d25;color:#e8e8ef}
+</style>
+<noscript>
+  <div class="bar red">❌ JavaScript is disabled or blocked. Open this page in Safari and ensure Settings → Safari → Advanced → JavaScript is ON.</div>
+</noscript>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 2c3.5 2.7 4.6 6 3.3 10a6 6 0 1 1-10.8 0C3.2 8 4.3 4.7 7.8 2c-.7 2.6.2 4.7 2.7 6.2C13 9.8 14.8 12 14 15c2.7-1.7 3.6-4.3 2.5-7.7C15.8 5.1 14.3 3.2 12 2z"/></svg>
-        </div>
-        <div>
-          <div class="title">Blaze — Pocket Spark</div>
-          <div class="sub">PWA • works offline after first open.</div>
-        </div>
-      </div>
-      <div><span class="badge" id="dailyBadge">Day 1</span></div>
-    </header>
-
-    <section class="card">
-      <h3>🎁 Surprise of the Day</h3>
-      <p class="muted">Tap to reveal one bold little mission.</p>
-      <div class="row"><button class="accent big" id="revealBtn">Reveal it</button><button class="ghost pill" id="shuffleBtn">Shuffle</button></div>
-      <div class="hr"></div>
-      <div id="surpriseText" class="small"></div>
-    </section>
-
-    <section class="card">
-      <h3>⚡ Hype Me</h3>
-      <p class="muted">Short, sharp, real.</p>
-      <div class="row"><button class="big" id="hypeBtn">Give me fire</button><button class="ghost pill" id="copyHype">Copy</button></div>
-      <p id="hypeText" class="small"></p>
-    </section>
-
-    <section class="card">
-      <h3>🌬️ Reset in 3 breaths</h3>
-      <div class="center" style="gap:10px">
-        <div id="pacer" style="width:150px;height:150px;border-radius:50%;border:2px dashed rgba(255,255,255,.2);display:grid;place-items:center;position:relative;overflow:hidden">
-          <div class="dot" style="width:18px;height:18px;border-radius:50%;background: linear-gradient(135deg, #8a7cff, #ff6f9c);box-shadow: 0 0 0 10px rgba(138,124,255,.08), 0 0 0 24px rgba(138,124,255,.04)"></div>
-        </div>
-        <div class="tiny" id="pacerCaption">In… 4 • Hold 2 • Out 4</div>
-        <div class="row center"><button id="startPacer" class="pill">Start</button><button class="pill ghost" id="stopPacer">Stop</button></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h3>🎯 Wheel of Sparks</h3>
-      <div class="center" style="gap:10px">
-        <div class="needle" style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid #ff6f9c;margin:auto"></div>
-        <div class="wheel" id="wheel" style="width:260px;height:260px;border-radius:50%;border:2px solid rgba(255,255,255,.12);position:relative;overflow:hidden;transform: translateZ(0)"></div>
-        <button class="big" id="spinBtn">Spin</button>
-      </div>
-      <p class="tiny center" id="wheelNote">Let fate nudge you.</p>
-    </section>
-
-    <section class="card">
-      <h3>🏁 Tiny Victories</h3>
-      <p class="muted small">Log one win.</p>
-      <div class="row"><input type="text" id="winInput" placeholder="What did you do today?"><button class="pill" id="saveWin">Save</button></div>
-      <div id="winList" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
-      <p class="tiny">Total: <span class="kudos" id="winCount">0</span></p>
-    </section>
-
-    <div class="tiny" style="text-align:center;color:var(--muted)">Install to Home Screen from Safari menu • Offline after first load</div>
-  </div>
-
-  <div class="toast" id="toast">Copied.</div>
-
+<div id="jsbar" class="bar red">Checking JavaScript…</div>
+<div class="wrap">
+  <p>Tap the button. If you see an alert and the bar turns green, JS is running.</p>
+  <button id="testBtn">Test Button</button>
+  <h3>Console / Errors</h3>
+  <pre id="log">(empty)</pre>
+  <p class="muted">If errors appear, send me a screenshot.</p>
+</div>
 <script>
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}) }
-
 (function(){
-  const $=s=>document.querySelector(s); const $$=s=>Array.from(document.querySelectorAll(s));
-  const vibrate=p=>{ try{ if(navigator.vibrate) navigator.vibrate(p)}catch(e){} };
-  const storage={ get(k,f){ try{return JSON.parse(localStorage.getItem(k)) ?? f}catch{return f}}, set(k,v){ localStorage.setItem(k, JSON.stringify(v))}};
-
-  const firstUse = storage.get('firstUse', Date.now()); storage.set('firstUse', firstUse);
-  const days = Math.max(1, Math.ceil((Date.now()-firstUse)/(1000*60*60*24))); $('#dailyBadge').textContent = `Day ${days}`;
-
-  const surprises=[
-    "Three minute mirror check: look at yourself with kindness, not critique. Pick one feature you like and own it all day.",
-    "Text someone a truth you usually swallow. Keep it clean or don’t—your call.",
-    "One brave action: ask, initiate, or say no. Do it before bed.",
-    "Slow coffee. No phone for the first five sips. Taste it.",
-    "Ten minute room reset. Timer on. Music off. Make a dent, not a masterpiece.",
-    "Take a photo that makes you feel powerful. Keep it for you.",
-    "Write the sentence: “I am not small.” Put it somewhere you’ll see it.",
-    "One walk, even short. Shoulders back, chin up. You set the tempo.",
-    "Tell your body thank you out loud after your next shower.",
-    "Choose the gold jewelry. No ‘saving it.’ Today is worthy."
-  ];
-  function pick(a){ return a[Math.floor(Math.random()*a.length)] }
-  function setSurprise(t){ $('#surpriseText').textContent=t }
-
-  $('#revealBtn').addEventListener('click', ()=>{
-    const d = new Date().toISOString().slice(0,10);
-    let map = storage.get('surpriseMap', {});
-    if(!map[d]){ map[d]=pick(surprises); storage.set('surpriseMap', map) }
-    setSurprise(map[d]); vibrate(20);
-  });
-  $('#shuffleBtn').addEventListener('click', ()=>{ setSurprise(pick(surprises)); vibrate([10,40,10]); });
-
-  const hype=[
-    "You’re not ‘too much.’ They’re not enough. Go take up space.",
-    "Sleek hair, sharp mind. That combo? Unfair. Use it.",
-    "Hourglass and hurricane. Walk like a problem with legs.",
-    "You don’t need permission—just shoes and intent.",
-    "Quiet power is still power. Make them lean in.",
-    "You’ve done harder things on worse days. This is light work.",
-    "You are allowed to want more. Act like it.",
-    "Own the room by owning your breath. Slow is dominant.",
-    "Stop negotiating with self-doubt. It doesn’t have your range.",
-    "Your standard is the bar. Raise it."
-  ];
-  $('#hypeBtn').addEventListener('click', ()=>{ const line=pick(hype); $('#hypeText').textContent=line; vibrate(12); });
-  $('#copyHype').addEventListener('click', async ()=>{
-    const txt = $('#hypeText').textContent || pick(hype);
-    if(navigator.clipboard && window.isSecureContext){
-      try{ await navigator.clipboard.writeText(txt); toast('Copied'); }
-      catch(e){ toast('Select & hold to copy'); }
-    } else {
-      toast('Select & hold to copy');
-    }
-    vibrate([10,40,10]);
-  });
-
-  // Pacer
-  let pacerTimer=null, cycles=0;
-  const pacer=$('#pacer'), cap=$('#pacerCaption');
-  function startP(){ stopP(); cycles=0; pacer.classList.add('play'); cap.textContent="In… 4 • Hold 2 • Out 4";
-    pacerTimer=setInterval(()=>{ cycles++; if(cycles>=9){ stopP(); toast('Reset complete.') } },1200);
-  }
-  function stopP(){ if(pacerTimer) clearInterval(pacerTimer); pacerTimer=null; pacer.classList.remove('play') }
-  $('#startPacer').addEventListener('click', startP); $('#stopPacer').addEventListener('click', stopP);
-
-  const style=document.createElement('style'); style.textContent=`#pacer.play::after{transform:scale(1.08)} #pacer::after{content:"";position:absolute;inset:0;border-radius:50%;background: radial-gradient(closest-side, rgba(138,124,255,.25), transparent);opacity:.8;transform: scale(0.8);transition: transform 3.6s ease-in-out} @keyframes orbit{from{transform: rotate(0) translateX(54px) rotate(0)}to{transform: rotate(360deg) translateX(54px) rotate(-360deg)}}`; document.head.appendChild(style);
-  const dot = $('#pacer .dot'); dot.style.animation = "orbit 3.6s linear infinite";
-
-  // Wheel
-  const wheel=$('#wheel');
-  const slices=[
-    {text:"Message Blaze something bold", color:"rgba(138,124,255,.35)"},
-    {text:"Two-minute tidy sprint", color:"rgba(255,111,156,.35)"},
-    {text:"Water + vitamins", color:"rgba(61,220,151,.35)"},
-    {text:"Mirror: say the line you needed to hear", color:"rgba(255,184,107,.35)"},
-    {text:"Stretch your neck + shoulders", color:"rgba(255,107,107,.35)"},
-    {text:"Plan one tiny pleasure for tonight", color:"rgba(138,124,255,.35)"}
-  ];
-  function renderWheel(){
-    wheel.innerHTML=""; const n=slices.length;
-    for(let i=0;i<n;i++){ const s=document.createElement('div'); s.className='slice'; s.style.position='absolute'; s.style.inset='0'; s.style.clipPath='polygon(50% 50%, 0 0, 100% 0)'; s.style.transform=`rotate(${(360/n)*i}deg)`; s.style.background=`conic-gradient(${slices[i].color} 0 ${(360/n)}deg, transparent ${(360/n)}deg)`; wheel.appendChild(s) }
-    const label=document.createElement('div'); label.className='label'; label.style.position='absolute'; label.style.inset='0'; label.style.display='grid'; label.style.placeItems='center'; label.style.textAlign='center'; label.style.padding='20px'; label.style.fontWeight='800'; label.innerHTML='<div id="wheelCenter">Spin me</div>'; wheel.appendChild(label);
-  }
-  renderWheel();
-  $('#spinBtn').addEventListener('click', ()=>{
-    const n=slices.length, target=Math.floor(Math.random()*n), turns=6+Math.random()*2, angle=360/n, final=(360-target*angle)+10, total=turns*360+final;
-    wheel.style.transition='transform 2.2s cubic-bezier(.2,.9,.2,1)'; wheel.style.transform=`rotate(${total}deg)`;
-    $('#wheelNote').textContent="Let fate nudge you."; setTimeout(()=>{ toast(slices[target].text); $('#wheelNote').textContent=slices[target].text; vibrate([15,60,15]) },2250);
-  });
-
-  // Wins
-  function renderWins(){ const wins=storage.get('wins',[]), list=$('#winList'); list.innerHTML=""; wins.forEach((w,i)=>{ const chip=document.createElement('label'); chip.style.padding='8px 10px'; chip.style.borderRadius='999px'; chip.style.border='1px solid rgba(255,255,255,.15)'; chip.innerHTML=`<input type="checkbox" data-idx="${i}" style="margin-right:6px"> ${w}`; list.appendChild(chip) });
-    $('#winCount').textContent = wins.length;
-    $$('#winList input[type="checkbox"]').forEach(cb=>cb.addEventListener('change',e=>{const idx=+e.target.dataset.idx; const wins=storage.get('wins',[]); wins.splice(idx,1); storage.set('wins',wins); renderWins()}));
-  }
-  renderWins();
-  $('#saveWin').addEventListener('click', ()=>{ const txt=$('#winInput').value.trim(); if(!txt) return; const wins=storage.get('wins',[]); wins.unshift(txt); storage.set('wins', wins.slice(0,24)); $('#winInput').value=""; renderWins(); vibrate(10) });
-
-  // Toast
-  let tmr=null; function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(tmr); tmr=setTimeout(()=>t.classList.remove('show'),1500) }
+  const bar = document.getElementById('jsbar');
+  function ok(msg){ bar.className='bar green'; bar.textContent = '✅ ' + msg }
+  function bad(msg){ bar.className='bar red'; bar.textContent = '❌ ' + msg }
+  ok('JavaScript is running');
+  document.getElementById('testBtn').addEventListener('click', ()=> alert('JS working'));
+  const log = document.getElementById('log');
+  const orig = console.error;
+  console.error = function(...args){ orig.apply(console, args); log.textContent += '\\n' + args.join(' ') }
+  window.onerror = function(msg, src, line, col, err){
+    log.textContent += `\\nERROR: ${msg} @ ${src}:${line}:${col}`;
+    bad('Error detected — see log below');
+  };
 })();
 </script>
 </body>
